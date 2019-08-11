@@ -20,8 +20,7 @@ const STATE = {
   Playing: 1,
   Complete: 2,
   Stats: 3,
-  Prefs: 4,
-  Theme: 5
+  Prefs: 4
 };
 
 const BUTTONS = {
@@ -29,8 +28,7 @@ const BUTTONS = {
   Playing: ["back"],
   Complete: [],
   Stats: [],
-  Prefs: ["back", "theme"],
-  Theme: ["back", "reset"],
+  Prefs: ["back"],
   None: []
 };
 
@@ -47,29 +45,26 @@ class Game {
       game: document.querySelector(".ui__game"),
       back: document.querySelector(".ui__background"),
       prefs: document.querySelector(".ui__prefs"),
-      theme: document.querySelector(".ui__theme"),
       stats: document.querySelector(".ui__stats"),
       texts: {
         title: document.querySelector(".text--title"),
         note: document.querySelector(".text--note"),
         timer: document.querySelector(".text--timer"),
         complete: document.querySelector(".text--complete"),
-        best: document.querySelector(".text--best-time"),
-        theme: document.querySelector(".text--theme")
+        best: document.querySelector(".text--best-time")
       },
       buttons: {
         prefs: document.querySelector(".btn--prefs"),
         back: document.querySelector(".btn--back"),
         stats: document.querySelector(".btn--stats"),
-        reset: document.querySelector(".btn--reset"),
-        theme: document.querySelector(".btn--theme")
+        reset: document.querySelector(".btn--reset")
       }
     };
 
     this.world = new World(this);
     this.cube = new Cube(this);
     this.controls = new Controls(this);
-    this.scrambler = new Scrambler(this);
+    /*this.scrambler = new Scrambler(this);*/
     this.transition = new Transition(this);
     this.timer = new Timer(this);
     this.preferences = new Preferences(this);
@@ -77,7 +72,7 @@ class Game {
     this.storage = new Storage(this);
     this.confetti = new Confetti(this);
     this.themes = new Themes(this);
-    this.themeEditor = new ThemeEditor(this);
+    /*this.themeEditor = new ThemeEditor(this);*/
 
     this.initActions();
 
@@ -145,20 +140,20 @@ class Game {
         this.game(HIDE);
       } else if (this.state === STATE.Prefs) {
         this.prefs(HIDE);
-      } else if (this.state === STATE.Theme) {
+      } /*else if (this.state === STATE.Theme) {
         this.theme(HIDE);
-      }
+      }*/
     };
 
-    this.dom.buttons.reset.onclick = event => {
+    /*this.dom.buttons.reset.onclick = event => {
       if (this.state === STATE.Theme) {
         this.themeEditor.resetTheme();
       }
-    };
+    };*/
 
     this.dom.buttons.prefs.onclick = event => this.prefs(SHOW);
 
-    this.dom.buttons.theme.onclick = event => this.theme(SHOW);
+    /*this.dom.buttons.theme.onclick = event => this.theme(SHOW);*/
 
     this.dom.buttons.stats.onclick = event => this.stats(SHOW);
 
@@ -168,15 +163,16 @@ class Game {
   game(show) {
     if (show) {
       if (!this.saved) {
-        this.scrambler.scramble();
-        this.controls.scrambleCube();
+        /*this.scrambler.scramble();
+        this.controls.scrambleCube();*/
         this.newGame = true;
       }
 
-      const duration = this.saved
+      /*const duration = this.saved
         ? 0
-        : this.scrambler.converted.length * (this.controls.flipSpeeds[0] + 10);
+        : this.scrambler.converted.length * (this.controls.flipSpeeds[0] + 10);*/
 
+      const duration = 0;
       this.state = STATE.Playing;
       this.saved = true;
 
@@ -241,7 +237,8 @@ class Game {
     }
   }
 
-  theme(show) {
+  
+  /*theme(show) {
     this.themeEditor.colorPicker(show);
 
     if (show) {
@@ -281,7 +278,7 @@ class Game {
         this.cube.loadFromData(gameCubeData);
       }, 1500);
     }
-  }
+  }*/
 
   stats(show) {
     if (show) {

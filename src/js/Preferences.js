@@ -18,11 +18,11 @@ class Preferences {
         onUpdate: value => {
           this.game.cube.size = value;
 
-          this.game.preferences.ranges.scramble.list.forEach((item, i) => {
+          /*this.game.preferences.ranges.scramble.list.forEach((item, i) => {
             item.innerHTML = this.game.scrambler.scrambleLength[
               this.game.cube.size
             ][i];
-          });
+          });*/
         },
         onComplete: () => this.game.storage.savePreferences()
       }),
@@ -33,16 +33,6 @@ class Preferences {
         step: 1,
         onUpdate: value => {
           this.game.controls.flipConfig = value;
-        },
-        onComplete: () => this.game.storage.savePreferences()
-      }),
-
-      scramble: new Range("scramble", {
-        value: this.game.scrambler.dificulty,
-        range: [0, 2],
-        step: 1,
-        onUpdate: value => {
-          this.game.scrambler.dificulty = value;
         },
         onComplete: () => this.game.storage.savePreferences()
       }),
@@ -64,13 +54,13 @@ class Preferences {
         range: [0, 4],
         step: 1,
         onUpdate: value => {
-          const theme = ["cube", "erno", "dust", "camo", "rain"][value];
+          const theme = ["cube"][value];
           this.game.themes.setTheme(theme);
         },
         onComplete: () => this.game.storage.savePreferences()
       }),
 
-      hue: new Range("hue", {
+      /*hue: new Range("hue", {
         value: 0,
         range: [0, 360],
         onUpdate: value => this.game.themeEditor.updateHSL(),
@@ -89,14 +79,14 @@ class Preferences {
         range: [0, 100],
         onUpdate: value => this.game.themeEditor.updateHSL(),
         onComplete: () => this.game.storage.savePreferences()
-      })
+      })*/
     };
 
-    this.ranges.scramble.list.forEach((item, i) => {
+    /*this.ranges.scramble.list.forEach((item, i) => {
       item.innerHTML = this.game.scrambler.scrambleLength[this.game.cube.size][
         i
       ];
-    });
+    });*/
   }
 }
 

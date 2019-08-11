@@ -52,7 +52,7 @@ class Controls {
 
     this.momentum = [];
 
-    this.scramble = null;
+    /*this.scramble = null;*/
     this.state = STILL;
     this.enabled = false;
 
@@ -73,7 +73,7 @@ class Controls {
     this.draggable = new Draggable(this.game.dom.game);
 
     this.draggable.onDragStart = position => {
-      if (this.scramble !== null) return;
+      /*if (this.scramble !== null) return;*/
       if (this.state === PREPARING || this.state === ROTATING) return;
 
       this.gettingDrag = this.state === ANIMATING;
@@ -92,7 +92,7 @@ class Controls {
         );
       }
 
-      if (edgeIntersect !== false && this.dragIntersect !== false) {
+      /*if (edgeIntersect !== false && this.dragIntersect !== false) {
         this.dragNormal = edgeIntersect.face.normal.round();
         this.flipType = "layer";
 
@@ -105,14 +105,14 @@ class Controls {
         this.helper.updateMatrixWorld();
 
         this.detach(this.helper, this.edges);
-      } else {
-        this.dragNormal = new THREE.Vector3(0, 0, 1);
-        this.flipType = "cube";
+      } else {*/
+      this.dragNormal = new THREE.Vector3(0, 0, 1);
+      this.flipType = "cube";
 
-        this.helper.position.set(0, 0, 0);
-        this.helper.rotation.set(0, Math.PI / 4, 0);
-        this.helper.updateMatrixWorld();
-      }
+      this.helper.position.set(0, 0, 0);
+      this.helper.rotation.set(0, Math.PI / 4, 0);
+      this.helper.updateMatrixWorld();
+      /*}*/
 
       let planeIntersect = this.getIntersect(
         position.current,
@@ -127,7 +127,7 @@ class Controls {
     };
 
     this.draggable.onDragMove = position => {
-      if (this.scramble !== null) return;
+      /*if (this.scramble !== null) return;*/
       if (
         this.state === STILL ||
         (this.state === ANIMATING && this.gettingDrag === false)
@@ -154,7 +154,7 @@ class Controls {
       if (this.state === PREPARING && this.dragTotal.length() > 0.05) {
         this.dragDirection = this.getMainAxis(this.dragTotal);
 
-        if (this.flipType === "layer") {
+        /*if (this.flipType === "layer") {
           const direction = new THREE.Vector3();
           direction[this.dragDirection] = 1;
 
@@ -168,7 +168,7 @@ class Controls {
           this.flipAxis = objectDirection.cross(this.dragNormal).negate();
 
           this.selectLayer(this.getLayer(false));
-        } else {
+        } else {*/
           const axis =
             this.dragDirection != "x"
               ? this.dragDirection == "y" &&
@@ -179,26 +179,26 @@ class Controls {
 
           this.flipAxis = new THREE.Vector3();
           this.flipAxis[axis] = 1 * (axis == "x" ? -1 : 1);
-        }
+        /*}*/
 
         this.flipAngle = 0;
         this.state = ROTATING;
       } else if (this.state === ROTATING) {
         const rotation = this.dragDelta[this.dragDirection];
 
-        if (this.flipType === "layer") {
+        /*if (this.flipType === "layer") {
           this.group.rotateOnAxis(this.flipAxis, rotation);
           this.flipAngle += rotation;
-        } else {
-          this.edges.rotateOnWorldAxis(this.flipAxis, rotation);
-          this.game.cube.object.rotation.copy(this.edges.rotation);
-          this.flipAngle += rotation;
-        }
+        } else {*/
+        this.edges.rotateOnWorldAxis(this.flipAxis, rotation);
+        this.game.cube.object.rotation.copy(this.edges.rotation);
+        this.flipAngle += rotation;
+        /*}*/
       }
     };
 
     this.draggable.onDragEnd = position => {
-      if (this.scramble !== null) return;
+      /*if (this.scramble !== null) return;*/
       if (this.state !== ROTATING) {
         this.gettingDrag = false;
         this.state = STILL;
@@ -219,7 +219,7 @@ class Controls {
 
       const delta = angle - this.flipAngle;
 
-      if (this.flipType === "layer") {
+      /*if (this.flipType === "layer") {
         this.rotateLayer(delta, false, layer => {
           this.game.storage.saveGame();
 
@@ -228,16 +228,16 @@ class Controls {
 
           this.checkIsSolved();
         });
-      } else {
-        this.rotateCube(delta, () => {
-          this.state = this.gettingDrag ? PREPARING : STILL;
-          this.gettingDrag = false;
-        });
-      }
+      } else {*/
+      this.rotateCube(delta, () => {
+        this.state = this.gettingDrag ? PREPARING : STILL;
+        this.gettingDrag = false;
+      });
+      /*}*/
     };
   }
 
-  rotateLayer(rotation, scramble, callback) {
+  /*rotateLayer(rotation, scramble, callback) {
     const config = scramble ? 0 : this.flipConfig;
 
     const easing = this.flipEasings[config];
@@ -268,7 +268,7 @@ class Controls {
         callback(layer);
       }
     });
-  }
+  }*/
 
   bounceCube() {
     let fixDelta = true;
@@ -309,7 +309,7 @@ class Controls {
     });
   }
 
-  selectLayer(layer) {
+  /*selectLayer(layer) {
     this.group.rotation.set(0, 0, 0);
     this.movePieces(layer, this.game.cube.object, this.group);
     this.flipLayer = layer;
@@ -318,9 +318,9 @@ class Controls {
   deselectLayer(layer) {
     this.movePieces(layer, this.group, this.game.cube.object);
     this.flipLayer = null;
-  }
+  }*/
 
-  movePieces(layer, from, to) {
+  /*movePieces(layer, from, to) {
     from.updateMatrixWorld();
     to.updateMatrixWorld();
 
@@ -362,13 +362,13 @@ class Controls {
     });
 
     return layer;
-  }
+  }*/
 
   keyboardMove(type, move, callback) {
     if (this.state !== STILL) return;
     if (this.enabled !== true) return;
 
-    if (type === "LAYER") {
+    /*if (type === "LAYER") {
       const layer = this.getLayer(move.position);
 
       this.flipAxis = new THREE.Vector3();
@@ -381,7 +381,8 @@ class Controls {
         this.state = STILL;
         this.checkIsSolved();
       });
-    } else if (type === "CUBE") {
+    } else*/
+    if (type === "CUBE") {
       this.flipAxis = new THREE.Vector3();
       this.flipAxis[move.axis] = 1;
       this.state = ROTATING;
@@ -392,7 +393,7 @@ class Controls {
     }
   }
 
-  scrambleCube() {
+  /*scrambleCube() {
     if (this.scramble == null) {
       this.scramble = this.game.scrambler;
       this.scramble.callback =
@@ -417,7 +418,7 @@ class Controls {
         this.game.storage.saveGame();
       }
     });
-  }
+  }*/
 
   getIntersect(position, object, multiple) {
     this.raycaster.setFromCamera(

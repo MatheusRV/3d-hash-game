@@ -95,7 +95,7 @@ class Transition {
       }
     });
 
-    if (theming) {
+    /*if (theming) {
       if (show) {
         this.game.world.camera.zoom = 0.75;
         this.game.world.camera.updateProjectionMatrix();
@@ -105,7 +105,7 @@ class Transition {
           this.game.world.camera.updateProjectionMatrix();
         }, 1500);
       }
-    }
+    }*/
 
     this.durations.cube = show ? 1500 : 1500;
 

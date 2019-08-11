@@ -119,7 +119,6 @@ class Storage {
 
       this.game.cube.size = parseInt(preferences.cubeSize);
       this.game.controls.flipConfig = parseInt(preferences.flipConfig);
-      this.game.scrambler.dificulty = parseInt(preferences.dificulty);
 
       this.game.world.fov = parseFloat(preferences.fov);
       this.game.world.resize();
@@ -131,7 +130,6 @@ class Storage {
     } catch (e) {
       this.game.cube.size = 3;
       this.game.controls.flipConfig = 0;
-      this.game.scrambler.dificulty = 1;
 
       this.game.world.fov = 10;
       this.game.world.resize();
@@ -148,7 +146,6 @@ class Storage {
     const preferences = {
       cubeSize: this.game.cube.size,
       flipConfig: this.game.controls.flipConfig,
-      dificulty: this.game.scrambler.dificulty,
       fov: this.game.world.fov,
       theme: this.game.themes.theme,
       colors: this.game.themes.colors
