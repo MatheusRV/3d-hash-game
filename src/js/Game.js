@@ -9,7 +9,6 @@ import { Confetti } from "./Confetti.js";
 import { Scores } from "./Scores.js";
 import { Storage } from "./Storage.js";
 import { Themes } from "./Themes.js";
-import { ThemeEditor } from "./ThemeEditor.js";
 import { States } from "./States.js";
 // import { Keyboard } from './Keyboard.js';
 

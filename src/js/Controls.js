@@ -1,5 +1,6 @@
 import { Tween, Easing } from "./Tween.js";
 import { Draggable } from "./Draggable.js";
+import { Clickable } from "./Clickable.js";
 
 const STILL = 0;
 const PREPARING = 1;
@@ -57,6 +58,7 @@ class Controls {
     this.enabled = false;
 
     this.initDraggable();
+    this.initClickable();
   }
 
   enable() {
@@ -234,6 +236,31 @@ class Controls {
         this.gettingDrag = false;
       });
       /*}*/
+    };
+  }
+
+  initClickable() {
+    this.clickable = new Clickable(this.game.dom.game);
+
+    this.clickable.onClickStart = position => {
+      /*if (this.scramble !== null) return;*/
+      if (this.state === PREPARING || this.state === ROTATING) return;
+
+      this.gettingDrag = this.state === ANIMATING;
+
+      console.log("Click Start")
+
+    }
+
+    this.clickable.onClickEnd = position => {
+      /*if (this.scramble !== null) return;*/
+      if (this.state !== ROTATING) {
+        this.gettingDrag = false;
+        this.state = STILL;
+        return;
+      }
+      console.log("Click End")
+      this.state = ANIMATING;
     };
   }
 
