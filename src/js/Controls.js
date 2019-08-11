@@ -58,7 +58,7 @@ class Controls {
     this.enabled = false;
 
     this.initDraggable();
-    this.initClickable();
+    /*this.initClickable();*/
   }
 
   enable() {
