@@ -239,11 +239,11 @@ class Controls {
     };
   }
 
-  initClickable() {
+  /*initClickable() {
     this.clickable = new Clickable(this.game.dom.game);
 
     this.clickable.onClickStart = position => {
-      /*if (this.scramble !== null) return;*/
+      if (this.scramble !== null) return;
       if (this.state === PREPARING || this.state === ROTATING) return;
 
       this.gettingDrag = this.state === ANIMATING;
@@ -253,7 +253,7 @@ class Controls {
     }
 
     this.clickable.onClickEnd = position => {
-      /*if (this.scramble !== null) return;*/
+      if (this.scramble !== null) return;
       if (this.state !== ROTATING) {
         this.gettingDrag = false;
         this.state = STILL;
@@ -262,7 +262,7 @@ class Controls {
       console.log("Click End")
       this.state = ANIMATING;
     };
-  }
+  }*/
 
   /*rotateLayer(rotation, scramble, callback) {
     const config = scramble ? 0 : this.flipConfig;
