@@ -1,7 +1,5 @@
 class Themes {
-
-  constructor( game ) {
-
+  constructor(game) {
     this.game = game;
     this.theme = null;
 
@@ -14,7 +12,7 @@ class Themes {
         B: 0xfff7ff, // orange
         L: 0xfff7ff, // green
         P: 0x08101a, // piece
-        G: 0xd1d5db, // background
+        G: 0xd1d5db // background
       },
       /*
       cube: {
@@ -35,7 +33,7 @@ class Themes {
         B: 0xff5800,
         L: 0x009e60,
         P: 0x08101a,
-        G: 0x8abdff,
+        G: 0x8abdff
       },
       dust: {
         U: 0xfff6eb,
@@ -45,7 +43,7 @@ class Themes {
         B: 0xbe6f62,
         L: 0x849f5d,
         P: 0x08101a,
-        G: 0xE7C48D,
+        G: 0xe7c48d
       },
       camo: {
         U: 0xfff6eb,
@@ -55,7 +53,7 @@ class Themes {
         B: 0x805831,
         L: 0x37431d,
         P: 0x08101a,
-        G: 0xBFB672,
+        G: 0xbfb672
       },
       rain: {
         U: 0xfafaff,
@@ -65,41 +63,36 @@ class Themes {
         B: 0xec582f,
         L: 0xa3a947,
         P: 0x08101a,
-        G: 0x87b9ac,
-      },
+        G: 0x87b9ac
+      }
     };
 
-    this.colors = JSON.parse( JSON.stringify( this.defaults ) );
-
+    this.colors = JSON.parse(JSON.stringify(this.defaults));
   }
 
   getColors() {
-
-    return this.colors[ this.theme ];
-
+    return this.colors[this.theme];
   }
 
-  setTheme( theme = false, force = false ) {
-
-    if ( theme === this.theme && force === false ) return;
-    if ( theme !== false ) this.theme = theme;
+  setTheme(theme = false, force = false) {
+    if (theme === this.theme && force === false) return;
+    if (theme !== false) this.theme = theme;
 
     const colors = this.getColors();
 
-    this.game.dom.prefs.querySelectorAll( '.range__handle div' ).forEach( range => {
+    this.game.dom.prefs
+      .querySelectorAll(".range__handle div")
+      .forEach(range => {
+        range.style.background = "#" + colors.R.toString(16).padStart(6, "0");
+      });
 
-      range.style.background = '#' + colors.R.toString(16).padStart(6, '0');
+    this.game.cube.updateColors(colors);
 
-    } );
+    this.game.confetti.updateColors(colors);
 
-    this.game.cube.updateColors( colors );
-
-    this.game.confetti.updateColors( colors );
-
-    this.game.dom.back.style.background = '#' + colors.G.toString(16).padStart(6, '0');
-
+    this.game.dom.back.style.background =
+      "#" + colors.G.toString(16).padStart(6, "0");
   }
-
 }
 
 export { Themes };
